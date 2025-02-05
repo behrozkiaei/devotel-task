@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestJS Application Deployment Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .content {
+            padding: 0 20%;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+        code {
+            background-color: #e8e8e8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        pre {
+            background-color: #e8e8e8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 50%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>NestJS Application Deployment Guide</h1>
+
+        <h2>Installation and Setup</h2>
+
+        <h3>1. Install XAMPP and Run MySQL</h3>
+        <ul>
+            <li>Download and install XAMPP from the <a href="https://www.apachefriends.org/index.html" target="_blank">official website</a>.</li>
+            <li>Start the MySQL service from the XAMPP control panel.</li>
+        </ul>
+
+        <h3>2. Install Dependencies</h3>
+        <ul>
+            <li>Open a terminal and navigate to the root directory of your NestJS application.</li>
+            <li>Run the following command to install the necessary packages:</li>
+        </ul>
+        <pre><code>npm install</code></pre>
+
+        <h3>3. Environment Configuration</h3>
+        <ul>
+            <li>Rename the <code>.env.example</code> file to <code>.env</code>:</li>
+        </ul>
+        <pre><code>mv .env.example .env</code></pre>
+
+        <h3>4. Start the Application</h3>
+        <ul>
+            <li>Run the NestJS application with the following command:</li>
+        </ul>
+        <pre><code>nest start</code></pre>
+        <ul>
+            <li>If you encounter issues, you may need to install the Nest CLI:</li>
+        </ul>
+        <pre><code>npm install -g @nestjs/cli</code></pre>
+
+        <h3>5. Testing the Application</h3>
+        <ul>
+            <li>Run the test suite with the following command:</li>
+        </ul>
+        <pre><code>npm run test</code></pre>
+
+        <h2>Application Architecture</h2>
+
+        <h3>Factory Strategy</h3>
+        <p>The application employs a factory strategy to fetch data from various APIs, refactor the data into a unified structure, and insert it into the database.</p>
+        <img src="folder structure.png" alt="Folder Structure">
+
+        <h3>TypeORM Integration</h3>
+        <p>The application uses TypeORM to interact with the database. Configuration details, including database connections and providers, are specified in the <code>.env</code> file.</p>
+        <img src="database.png" alt="Database">
+        <img src="database2.png" alt="Database Configuration">
+
+        <h2>Services</h2>
+
+        <h3>Job Service</h3>
+        <p>Responsible for inserting data into the database while preventing duplicate entries.</p>
+        <img src="logging.png" alt="Logging">
+
+        <h3>API Service</h3>
+        <p>Connected to the API controller to fetch data based on pagination and filtration criteria. This controller is documented using Swagger.</p>
+        <img src="swagger.png" alt="Swagger">
+        <img src="swagger2.png" alt="Swagger API Documentation">
+
+        <h2>Testing Strategy</h2>
+
+        <h3>Scheduler Fetch Test</h3>
+        <p>Testing the fetch scheduler with mock data.</p>
+
+        <h3>Conversion Strategy Test</h3>
+        <p>Testing the conversion strategy for both providers with two sets of mock data.</p>
+
+        <h3>Integration Test</h3>
+        <p>Building an integration test to convert a provider's response into a unified format suitable for database insertion.</p>
+
+        <h3>Unit Tests</h3>
+        <p>Two unit tests for both the API service and the job service.</p>
+
+        <h3>End-to-End Test</h3>
+        <p>Conducting an end-to-end test by inserting data into the service controller in a unified format and fetching data from the API controller with pagination and property checks.</p>
+        <img src="testing.png" alt="Testing">
+    </div>
+</body>
+</html>
